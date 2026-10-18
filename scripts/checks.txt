@@ -1,0 +1,8 @@
+# name | url | needs_key (yes/no) | ok_codes (regex) — one check per line
+Live video (New York)  | https://live.bagr.app                                                        | no  | ^200$
+Live video (backup)    | https://live2.bagr.app                                                       | no  | ^200$
+API (database)         | https://yqsrntkmipqkkdakssmp.supabase.co/rest/v1/app_config?select=key&limit=1 | yes | ^200$
+Sign-in                | https://yqsrntkmipqkkdakssmp.supabase.co/auth/v1/health                      | yes | ^200$
+Server functions       | https://yqsrntkmipqkkdakssmp.supabase.co/functions/v1/hello                  | yes | ^200$
+Payments webhook       | https://yqsrntkmipqkkdakssmp.supabase.co/functions/v1/stripe-webhook         | no  | ^(2|4)[0-9][0-9]$
+Share links            | https://go.bagr.app                                                          | no  | ^200$

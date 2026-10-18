@@ -1,0 +1,55 @@
+name: monitor
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: data
+          fetch-depth: 1
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: _main
+      - name: Check every service
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: bash _main/scripts/check.sh | tee round.txt
+      - name: Record history and uptime
+        run: python3 _main/scripts/report.py < round.txt
+      - name: Open or close an issue per check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ALERT_TO: ${{ vars.ALERT_TO }}
+        run: |
+          while IFS='|' read -r name state code secs; do
+            title="DOWN: $name"
+            num="$(gh issue list --state open --search "\"$title\" in:title" --json number,title --jq ".[] | select(.title == \"$title\") | .number" | head -1)"
+            if [ "$state" = down ] && [ -z "$num" ]; then
+              # Two rounds in a row before alerting: the previous round must also be down.
+              prev="$(grep -F ",$name," history/*.csv | tail -2 | head -1 | cut -d, -f3)"
+              if [ "$prev" = down ]; then
+                gh issue create --title "$title" --body "$name has failed two checks in a row (HTTP $code). Started about $(date -u -d '-5 min' '+%H:%M') UTC. This issue closes itself when it answers again." ${ALERT_TO:+--assignee "$ALERT_TO"}
+              fi
+            elif [ "$state" = up ] && [ -n "$num" ]; then
+              gh issue close "$num" --comment "Back up at $(date -u '+%Y-%m-%d %H:%M') UTC (HTTP $code)."
+            fi
+          done < round.txt
+      - name: Save
+        run: |
+          git config user.name "bagr-status"
+          git config user.email "bagr-status@users.noreply.github.com"
+          git add history STATUS.md
+          git commit -q -m "check $(date -u '+%Y-%m-%d %H:%M')" || exit 0
+          for i in 1 2 3; do git push -q origin data && break; git pull -q --rebase origin data; done
