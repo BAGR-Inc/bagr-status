@@ -1,7 +1,10 @@
 name: monitor
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    # Hourly at :23 (Sam 10-18). GitHub ran the old */5 schedule only ~every
+    # 4 h under load; an hourly slot off the top of the hour is far more
+    # reliable. For minute-level alerting use an external monitor.
+    - cron: '23 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
