@@ -6,3 +6,10 @@ utc,check,state,http,seconds
 2026-10-18T00:10:22+00:00,Server functions,up,200,0.248837
 2026-10-18T00:10:22+00:00,Payments webhook,up,405,0.372634
 2026-10-18T00:10:22+00:00,Share links,up,200,0.235342
+2026-10-18T04:31:58+00:00,Live video (New York),up,200,0.109337
+2026-10-18T04:31:58+00:00,Live video (backup),up,200,0.409181
+2026-10-18T04:31:58+00:00,API (database),up,200,0.577429
+2026-10-18T04:31:58+00:00,Sign-in,up,200,0.368267
+2026-10-18T04:31:58+00:00,Server functions,up,200,0.152884
+2026-10-18T04:31:58+00:00,Payments webhook,up,405,0.163639
+2026-10-18T04:31:58+00:00,Share links,up,200,0.078316
