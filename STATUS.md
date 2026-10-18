@@ -1,11 +1,11 @@
 # BAGR status
 
-Last check: 2026-10-18 16:05 UTC (every 5 minutes, from GitHub, outside our servers).
+Last check: 2026-10-18 18:42 UTC (every 5 minutes, from GitHub, outside our servers).
 
 | Check | Now | Last 24 h | Last 7 days | Last 30 days |
 |---|---|---|---|---|
 | Live video (New York) | up | 100.000% | 100.000% | 100.000% |
-| Live video (backup) | up | 80.000% | 80.000% | 80.000% |
+| Live video (backup) | up | 83.333% | 83.333% | 83.333% |
 | API (database) | up | 100.000% | 100.000% | 100.000% |
 | Sign-in | up | 100.000% | 100.000% | 100.000% |
 | Server functions | up | 100.000% | 100.000% | 100.000% |
