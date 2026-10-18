@@ -1,0 +1,8 @@
+utc,check,state,http,seconds
+2026-10-18T00:10:22+00:00,Live video (New York),up,200,0.266329
+2026-10-18T00:10:22+00:00,Live video (backup),up,200,0.481108
+2026-10-18T00:10:22+00:00,API (database),up,200,0.608462
+2026-10-18T00:10:22+00:00,Sign-in,up,200,0.402406
+2026-10-18T00:10:22+00:00,Server functions,up,200,0.248837
+2026-10-18T00:10:22+00:00,Payments webhook,up,405,0.372634
+2026-10-18T00:10:22+00:00,Share links,up,200,0.235342
